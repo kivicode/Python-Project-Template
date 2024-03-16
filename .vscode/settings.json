@@ -1,0 +1,37 @@
+{
+    // FILES TO EXCLUDE FROM VSCODE ANALYSIS
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+    },
+    "files.autoSave": "onFocusChange",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file", // "modifications" does not work with black
+    "black-formatter.args": [
+        "--line-length=110",
+        // "--fast" // Uncomment for faster formatting, ommits an AST sanity check
+    ],
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit",
+            "source.organizeImports": "explicit"
+        },
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "autoDocstring.customTemplatePath": ".vscode/google_typeless.mustache",
+    "python.analysis.typeCheckingMode": "strict",
+    "python.analysis.diagnosticMode": "openFilesOnly",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.inlayHints.callArgumentNames": "all",
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./tests",
+        "-p",
+        "test_*.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true,
+}
