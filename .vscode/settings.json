@@ -1,24 +1,21 @@
 {
-    // FILES TO EXCLUDE FROM VSCODE ANALYSIS
     "files.watcherExclude": {
         "**/.git/objects/**": true,
         "**/.git/subtree-cache/**": true,
+        "**/.venv/**": true,
     },
     "files.autoSave": "onFocusChange",
-    "files.associations": {
-        "*.nu": "json",
-        "*.spec": "python",
-        "*.pi": "python"
-    },
+    "files.associations": {},
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "file",
     "[python]": {
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
-            "source.fixAll": "explicit",
-            "source.organizeImports": "explicit"
+            "source.fixAll": "always",
+            "source.organizeImports": "always"
         },
         "editor.defaultFormatter": "charliermarsh.ruff"
     },
     "autoDocstring.customTemplatePath": ".vscode/google_typeless.mustache",
+    "python.analysis.autoImportCompletions": true,
 }

@@ -1,45 +1,116 @@
-[tool.poetry]
+[project]
 name = "package-name"
-version = "0.1.0"
 description = "A template for a nice package"
-authors = ["KiviCode <kivicode.dev@gmail.com>"]
+authors = [{ name = "kivicode.dev@gmail.com", email = "kivicode@yandex.com" }]
 license = "MIT"
 readme = "README.md"
+dynamic = ["version"]
 
-[tool.poetry.dependencies]
-python = "~3.11"
+requires-python = ">=3.11"
+dependencies = []
 
-
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.9.6"
-mypy = "^1.15.0"
-pre-commit = "^4.1.0"
-ipykernel = "^6.29.5"
+[dependency-groups]
+dev = ["ruff~=0.9.6", "mypy~=1.15.0", "pre-commit~=4.1.0", "ipykernel~=6.29.5"]
 
 [tool.mypy]
-ignore_missing_imports = false
+warn_unused_configs = true
+ignore_missing_imports = true
+warn_unused_ignores = false
+show_error_codes = true
 check_untyped_defs = true
+no_implicit_optional = true
+explicit_package_bases = true
 
 [tool.ruff]
-line-length = 110
-indent-width = 4
+unsafe-fixes = true
+exclude = [".venv"]
+extend-include = ["*.ipynb"]
 target-version = "py311"
-
-[tool.ruff.format]
-indent-style = "space"
-line-ending = "auto"
-quote-style = "double"
-skip-magic-trailing-comma = false
-docstring-code-format = true
-docstring-code-line-length = "dynamic"
+line-length = 120
 
 [tool.ruff.lint]
-select = ["D417", "F401", "UP"]
-ignore = ["D202", "UP015", "UP035"]
+preview = true
+explicit-preview-rules = true
+select = [
+    # Default rules
+    "E",     # pycodestyle errors
+    "F",     # Pyflakes
+    "C4",    # flake8-comprehensions
+    "C90",   # mccabe complex structure
+    "D",     # pydocstyle
+    "I",     # isort
+    "PT",    # flake8-pytest-style
+    "PL",    # Pylint
+    "SIM",   # flake8-simplify
+    "UP",    # pyupgrade
+    "W",     # pycodestyle warnings
+    "S",     # flake8-bandit
+    "ANN",   # flake8-annotations
+    "B",     # flake8-bugbear
+    "NPY",   # NumPy-specific rules
+    "UP045",
+]
+extend-select = [
+    "RUF022",  # unsorted-dunder-all
+    "PLR6301", # no-self-use
+]
+ignore = [
+    "B024",
+    "B028",    # no-explicit-stacklevel
+    "B904",
+    "C901",    # complex-structure
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D107",
+    "D415",
+    "D200",
+    "D205",
+    "D212",
+    "E722",
+    "ANN002",
+    "ANN003",
+    "ANN204",  # dynamically typed expressions
+    "ANN401",
+    "PLR0913",
+    "PLR2004", # magic value used in comparison
+    "PT028",   # test function parameter has default argument
+]
 
 [tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["F401"]
+"tests/**/*.py" = [
+    "S101",
+    "S105",
+    "S106",
+    "ANN001",
+    "ANN201",
+    "PLR6301",
+    "PT011",
+]
+
+
+[tool.ruff.lint.pylint]
+max-locals = 20
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 120
+
+[tool.bandit]
+exclude_dirs = [".venv"]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "package_name/_version.py"
